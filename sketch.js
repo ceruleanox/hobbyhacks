@@ -20,7 +20,7 @@ let update = true;
 // this function is called when the model has been loaded
 
 function preload() {
-    baseImg = loadImage('inputImg/content_BLM.gif');
+    baseImg = loadImage('inputImg/scontent_BLM.gif');
 }
 
 // filter matrix to apply to base image

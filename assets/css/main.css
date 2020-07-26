@@ -2354,6 +2354,13 @@ input, select, textarea {
 			cursor: pointer;
 		  }
 
+		  #intro .cnn {
+			margin: 0px 0;
+			width: 400px;
+			height: 200px;
+			cursor: pointer;
+		  }
+
 		  #intro .cimage {
 			margin: 0px 0;
 			width: 80px;

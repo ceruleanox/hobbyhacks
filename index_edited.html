@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Ace the Trace</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- p5 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+		<!--
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+		-->
+		<!-- ml5 -->
+		<script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+
+	</head>
+	<body class="homepage is-preload">
+
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<section id="header">
+
+					<!-- Logo -->
+						<h1><a href="index.html">Ace the Trace</a></h1>
+						<p>Draw like a pro by tracing AI-generated images</p>
+
+					<!-- Banner -->
+						<section id="banner">
+							<header>
+								<h2>Don't know how to draw? We've got you covered.</h2>
+								<p>Have no fear— Tracing is here!</p>
+							</header>
+						</section>
+
+					<!-- Generate Stylized Image -->
+						<section id="intro" class="container">
+							<div class="row">
+								<div class="col-4 col-12-medium">
+									<section class="first">
+										<header>
+											<h2>INPUT</h2>
+										</header>
+										<img id="input-img" src='inputImg/content_BLM.gif'/>
+										<br><br>
+										<h3>Select Your Content</h3>
+										<br>
+										<p>Choose one of the images below to start out with.</p>
+										<br>
+										<footer>
+											<div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="cimage" id="BLM" src='inputImg/content_BLM.gif' onclick="updateInputImg('content_BLM.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="cimage" id="candy" src='inputImg/content_candy.gif' onclick="updateInputImg('content_candy.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+													<a class="imageAnchor" href="#">
+													  <img class="cimage" id="playGuitar" src='inputImg/content_playGuitar.gif' onclick="updateInputImg('content_playGuitar.gif')"/>
+													</a>
+												  </div>
+											  </div>
+											  <div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="cimage" id="painting" src='inputImg/content_painting.gif' onclick="updateInputImg('content_painting.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="cimage" id="two-heads" src='inputImg/content_two-heads.gif' onclick="updateInputImg('content_two-heads.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+													<a class="imageAnchor" href="#">
+													  <img class="cimage" id="head" src='inputImg/content_head.gif' onclick="updateInputImg('content_head.gif')"/>
+													</a>
+												</div>
+											  </div>
+
+										</footer>
+									</section>
+								</div>
+								<div class="col-4 col-12-medium">
+									<section class="middle">
+										<header>
+											<h2>STYLE</h2>
+										</header>
+										<img id="style-img" src='inputImg/style_mathura.gif'>
+										<br><br>
+										<h3>Add Some Pizzazz</h3>
+										<br>
+										<p>Apply a pre-trained model to your content image by selecting any of the below images.</p>
+										<br>
+										<footer>
+											<div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="simage" id="mathura" src='inputImg/style_mathura.gif' onclick="updateStyleImg('style_mathura.gif',0)"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="simage" id="wave" src='inputImg/style_wave.gif' onclick="updateStyleImg('style_wave.gif',1)"/>
+												  </a>
+												</div>
+										</footer>
+									</section>
+								</div>
+								<div class="col-4 col-12-medium">
+									<section class="last">
+										<header>
+											<h2>OUTPUT</h2>
+										</header>
+										<div id="output-img-container">
+										</div>
+										<br><br>
+										<h3>Voilà!</h3>
+										<br>
+										<p>Click on the button below to create a new image from the content and style images you've currently selected. Just wait for it... wait for it—</p>
+										<br>
+										<footer>
+											<ul class="actions">
+												<li><a href="#" class="button alt" onclick="onPredictClick()">Work Some Magic!</a></li>
+											</ul>
+										</footer>
+									</section>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="row">
+									<div class="col-12">
+										<section class="box">
+											<!--<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
+											-->
+											<div id="cnn-img-container">
+												<img class="cnn" src="inputImg/edgeDetection.gif">
+											</div>
+											<br><br>
+											<header>
+												<h3>Ready to Outline Art?</h3>
+											</header>
+											<p>Here we show you the input stylized image on the left side and what the image looks like after applying a filter matrix (love the Convolutional Neural Network we made from scratch in sketch.js!) and performing edge detection on the right side. The goal of this is to create an outline image that's easy to trace.</p>
+											<br><br>
+											<footer>
+												<ul class="actions">
+													<li><a id="download-canvas" href="#" class="button alt">Download Image</a></li>
+												</ul>
+											</footer>
+										</section>
+									</div>
+								</div>
+							</div>
+						</section>
+				</section>
+			<!-- Main -->
+				<section id="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<section id="footer">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 col-12-medium">
+								<section>
+									<header>
+										<h2>Credits</h2>
+									</header>
+									<p>
+										<p>BLM silhouette is from Hust Wilson for Fine Acts</p>
+										
+										<p>Doodle images are from:  <a href="http://clipart-library.com/clipart/19-niEyybGBT.htm">Clipart Library</a></p>
+
+										<p>Zentangle image from: <a href="https://all-free-download.com/free-vector/download/zentangle-circle-black-and-white_6814366.html">Simon Peters</a></p>
+
+										<p>Web Template Design: <a href="http://html5up.net">HTML5 UP</a></p>
+
+										<p>Pre-trained models from: <a href="https://github.com/yining1023/fast_style_transfer_in_ML5/tree/master/models">yining1023's Github</a></p>
+
+									</p>
+								</section>
+							</div>
+							<div class="col-12">
+
+								<!-- Copyright -->
+									<div id="copyright">
+										<ul class="links">
+											<li>&copy; Ace the Trace. All rights reserved.</li>
+										</ul>
+									</div>
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<!-- additions -->
+			<script src="assets/js/downloadCanvas.js"></script>
+
+			
+
+	</body>
+</html>
