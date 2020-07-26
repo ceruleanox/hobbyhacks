@@ -122,7 +122,7 @@ function modelLoaded() {
 function predictImg(modelName) {
     console.log("stylesketch.js - predictingImg()");
     console.log(modelName);
- 
+
     isLoading = true;
     if (!modelReady) return;
     if (inputImg) {
@@ -148,10 +148,11 @@ function updateInputImg(imgName) {
     console.log("updateInputImg"+imgName);
 }
 
-  function updateStyleImg(imgName) {
+  function updateStyleImg(imgName,ele) {
     document.getElementById("style-img").src = "inputImg/"+ imgName;
-      currentModel = document.getElementsByClassName("simage")[0].id;
-      console.log(document.getElementsByClassName("simage")[0].id);
+    //currentModel = document.getElementsByClassName("simage").getElementsById();
+      currentModel = document.getElementsByClassName("simage")[ele].id;
+    //  console.log(document.getElementsByClassName("simage")[0].id);
       update = true;
     if (currentModel) {
       predictImg(currentModel);

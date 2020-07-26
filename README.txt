@@ -1,3 +1,8 @@
+This github is for the website (acethetrace.glitch.me) and style transfer algorithm.
+
+The website template was taken from the following:
+
+
 Dopetrope by HTML5 UP
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
