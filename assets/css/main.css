@@ -1730,6 +1730,68 @@ input, select, textarea {
 			justify-content: center;
 		  }
 
+		  .cimage {
+			display: inline-block;
+			outline: 0;
+		}
+	
+			.cimage img {
+				display: block;
+				width: 100%;
+			}
+	
+			.cimage.centered {
+				display: block;
+				margin: 0 0 2em 0;
+			}
+	
+				.cimage.centered img {
+					margin: 0 auto;
+					width: auto;
+				}
+	
+			.cimage.featured {
+				display: block;
+				width: 100%;
+				margin: 0 0 2em 0;
+			}
+	
+			.cimage.left {
+				float: left;
+				margin: 0 2em 2em 0;
+			}
+	
+			.simage {
+				display: inline-block;
+				outline: 0;
+			}
+		
+				.simage img {
+					display: block;
+					width: 100%;
+				}
+		
+				.simage.centered {
+					display: block;
+					margin: 0 0 2em 0;
+				}
+		
+					.simage.centered img {
+						margin: 0 auto;
+						width: auto;
+					}
+		
+				.simage.featured {
+					display: block;
+					width: 100%;
+					margin: 0 0 2em 0;
+				}
+		
+				.simage.left {
+					float: left;
+					margin: 0 2em 2em 0;
+				}
+		
 /* List */
 
 	ul {
@@ -2286,6 +2348,20 @@ input, select, textarea {
 		  }
 
 		 #intro .image {
+			margin: 0px 0;
+			width: 80px;
+			height: 80px;
+			cursor: pointer;
+		  }
+
+		  #intro .cimage {
+			margin: 0px 0;
+			width: 80px;
+			height: 80px;
+			cursor: pointer;
+		  }
+
+		  #intro .simage {
 			margin: 0px 0;
 			width: 80px;
 			height: 80px;
