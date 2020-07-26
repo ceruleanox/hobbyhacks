@@ -34,8 +34,10 @@ let filter = [
 function setup() {
 
     noCanvas();
-    inputImg = select('#input-img').elt;
-    styleImg = select('#style-img').elt;
+
+    // get input and style images
+    inputImg = select('#input-img');
+    styleImg = select('#style-img');
 
     // load models
     modelNames.forEach(n => {
@@ -43,11 +45,7 @@ function setup() {
     });
 
     // output image container
-    outputImgContainer = createImg('images/loading.gif', 'image');
-    outputImgContainer.parent('output-img-container');
-
-    //predictImg(currentModel);
-
+    console.log(inputImg);
     console.log("stylesketch.js - setup()");
 
     ///////////////////////////
@@ -115,7 +113,6 @@ function modelLoaded() {
     modelNum++;
     if (modelNum >= modelNames.length) {
       modelReady = true;
-     // predictImg(currentModel);
     }
     console.log("stylesketch.js - modelLoaded()");
     console.log(modelNum);
@@ -130,12 +127,10 @@ function predictImg(modelName) {
     if (!modelReady) return;
     if (inputImg) {
       outputImgData = nets[modelName].transfer(inputImg, function(err, result) {
-        //createImg(result.src).parent('output-img-container');
-        outputImgContainer.elt.src = createImg(result.src).parent('output-img-container');
+        outputImgContainer = createImg(result.src);
+        outputImgContainer.parent('output-img-container');
       });
     }
-//    outputImg = ml5.array3DToImage(outputImgData);
-//    outputImgContainer.elt.src = outputImg.src;
     isLoading = false;
 }
 
@@ -153,16 +148,10 @@ function updateInputImg(imgName) {
     console.log("updateInputImg"+imgName);
 }
 
-  /*
-function updateInputImg(ele) {
-    if (ele.src) inputImg.src = ele.src;
-    predictImg(currentModel);
-  }
-  */
-
   function updateStyleImg(imgName) {
     document.getElementById("style-img").src = "inputImg/"+ imgName;
-      currentModel = document.getElementById("style-img").id;
+      currentModel = document.getElementsByClassName("simage")[0].id;
+      console.log(document.getElementsByClassName("simage")[0].id);
       update = true;
     if (currentModel) {
       predictImg(currentModel);
