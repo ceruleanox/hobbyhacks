@@ -3,6 +3,22 @@ let baseImgWidth;
 let baseImgHeight;
 let filtered; // filtered image with edges
 
+///////////////////////////////////////////////////////////////
+
+let nets = {};
+let modelNames = ['mathura', 'wave'];
+let inputImg, styleImg;
+let outputImgData;
+let outputImg;
+let modelNum = 0;
+let currentModel = 'mathura';
+let isLoading = true;
+let modelReady = false;
+let update = true;
+
+//////////////////////////////////////////////////////////////
+// this function is called when the model has been loaded
+
 function preload() {
     baseImg = loadImage('inputImg/content_BLM.gif');
 }
@@ -16,6 +32,26 @@ let filter = [
 
 // gets called once
 function setup() {
+
+    noCanvas();
+    inputImg = select('#input-img').elt;
+    styleImg = select('#style-img').elt;
+
+    // load models
+    modelNames.forEach(n => {
+        nets[n] = ml5.styleTransfer('models/' + n + '/', modelLoaded);
+    });
+
+    // output image container
+    outputImgContainer = createImg('images/loading.gif', 'image');
+    outputImgContainer.parent('output-img-container');
+
+    //predictImg(currentModel);
+
+    console.log("stylesketch.js - setup()");
+
+    ///////////////////////////
+
     baseImgWidth = baseImg.width;
     baseImgHeight = baseImg.height; 
     createCanvas(baseImgWidth*2, baseImgHeight);
@@ -71,3 +107,72 @@ function convolution(img, x, y, filter) {
         b: sumB
     };
 }
+
+
+////////////////////////////////////////////////////////
+
+function modelLoaded() {
+    modelNum++;
+    if (modelNum >= modelNames.length) {
+      modelReady = true;
+     // predictImg(currentModel);
+    }
+    console.log("stylesketch.js - modelLoaded()");
+    console.log(modelNum);
+}
+
+
+function predictImg(modelName) {
+    console.log("stylesketch.js - predictingImg()");
+    console.log(modelName);
+ 
+    isLoading = true;
+    if (!modelReady) return;
+    if (inputImg) {
+      outputImgData = nets[modelName].transfer(inputImg, function(err, result) {
+        //createImg(result.src).parent('output-img-container');
+        outputImgContainer.elt.src = createImg(result.src).parent('output-img-container');
+      });
+    }
+//    outputImg = ml5.array3DToImage(outputImgData);
+//    outputImgContainer.elt.src = outputImg.src;
+    isLoading = false;
+}
+
+function draw() {
+    if (modelReady && update) {
+      predictImg(currentModel);
+      update = false;
+      noLoop();
+    }
+  }
+
+function updateInputImg(imgName) {
+    document.getElementById("input-img").src = "inputImg/"+ imgName;
+    update = true;
+    console.log("updateInputImg"+imgName);
+}
+
+  /*
+function updateInputImg(ele) {
+    if (ele.src) inputImg.src = ele.src;
+    predictImg(currentModel);
+  }
+  */
+
+  function updateStyleImg(imgName) {
+    document.getElementById("style-img").src = "inputImg/"+ imgName;
+      currentModel = document.getElementById("style-img").id;
+      update = true;
+    if (currentModel) {
+      predictImg(currentModel);
+    }
+    console.log("updateStyleImg"+imgName);
+    console.log("updateStyleImg"+currentModel);
+  }
+
+  function onPredictClick() {
+    console.log("predicting after onPredictClick");
+    update = true;
+    predictImg(currentModel);
+  }

@@ -14,10 +14,14 @@
 		<!-- p5 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+		<!--
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+		-->
 		<!-- ml5 -->
 		<script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
-		
+		<!-- preloading functions-->
+	<!--	<script src="styleSketch.js"></script>
+		-->
 	</head>
 	<body class="homepage is-preload">
 
@@ -43,29 +47,97 @@
 							<div class="row">
 								<div class="col-4 col-12-medium">
 									<section class="first">
-										<i class="icon solid featured fa-cog"></i>
 										<header>
-											<h2>Upload Your Content</h2>
+											<h2>INPUT</h2>
 										</header>
-										<p>This is the main image you want to draw. Silhouettes work really well!</p>
+										<img id="input-img" src='inputImg/content_BLM.gif'/>
+										<br><br>
+										<h3>Select Your Content</h3>
+										<br>
+										<p>Choose one of the images below to start out with.</p>
+										<br>
+										<footer>
+											<div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="BLM" src='inputImg/content_BLM.gif' onclick="updateInputImg('content_BLM.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="candy" src='inputImg/content_candy.gif' onclick="updateInputImg('content_candy.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="head" src='inputImg/content_head.gif' onclick="updateInputImg('content_head.gif')"/>
+												  </a>
+												</div>
+											  </div>
+											  <div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="painting" src='inputImg/content_painting.gif' onclick="updateInputImg('content_painting.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="playGuitar" src='inputImg/content_playGuitar.gif' onclick="updateInputImg('content_playGuitar.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="two-heads" src='inputImg/content_two-heads.gif' onclick="updateInputImg('content_two-heads.gif')"/>
+												  </a>
+												</div>
+											  </div>
+
+										</footer>
 									</section>
 								</div>
 								<div class="col-4 col-12-medium">
 									<section class="middle">
-										<i class="icon solid featured alt fa-bolt"></i>
 										<header>
-											<h2>Stylize Your Image</h2>
+											<h2>STYLE</h2>
 										</header>
-										<p>Add some pizzazz to the image you want to draw.</p>
+										<img id="style-img" src='inputImg/style_mathura.gif'>
+										<br><br>
+										<h3>Add Some Pizzazz</h3>
+										<br>
+										<p>Apply a pre-trained model to your content image by selecting any of the below images.</p>
+										<br>
+										<footer>
+											<div class="style-container">
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="mathura" src='inputImg/style_mathura.gif' onclick="updateStyleImg('style_mathura.gif')"/>
+												  </a>
+												</div>
+												<div class="container">
+												  <a class="imageAnchor" href="#">
+													<img class="image" id="wave" src='inputImg/style_wave.gif' onclick="updateStyleImg('style_wave.gif')"/>
+												  </a>
+												</div>
+										</footer>
 									</section>
 								</div>
 								<div class="col-4 col-12-medium">
 									<section class="last">
-										<i class="icon solid featured alt2 fa-star"></i>
 										<header>
-											<h2>Voilà!</h2>
+											<h2>OUTPUT</h2>
 										</header>
-										<p>Just like magic! Here's the resulting image.</p>
+										<div id="output-img-container">
+										</div>
+										<br><br>
+										<h3>Voilà!</h3>
+										<br>
+										<p>Click on the button below to create a new image from the content and style images you've currently selected. Just wait for it... wait for it—</p>
+										<br>
+										<footer>
+											<ul class="actions">
+												<li><a href="#" class="button alt" onclick="onPredictClick()">Work Some Magic!</a></li>
+											</ul>
+										</footer>
 									</section>
 								</div>
 							</div>
@@ -226,8 +298,10 @@
 										<p>Doodle images are from:  <a href="http://clipart-library.com/clipart/19-niEyybGBT.htm">Clipart Library</a></p>
 
 										<p>Zentangle image from: <a href="https://all-free-download.com/free-vector/download/zentangle-circle-black-and-white_6814366.html">Simon Peters</a></p>
-										 
+
 										<p>Web Template Design: <a href="http://html5up.net">HTML5 UP</a></p>
+
+										<p>Pre-trained models from: <a href="https://github.com/yining1023/fast_style_transfer_in_ML5/tree/master/models">yining1023's Github</a></p>
 
 									</p>
 								</section>
@@ -257,6 +331,8 @@
 			<script src="assets/js/main.js"></script>
 			<!-- additions -->
 			<script src="assets/js/downloadCanvas.js"></script>
+
+			
 
 	</body>
 </html>
