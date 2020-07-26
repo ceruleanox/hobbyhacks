@@ -145,6 +145,7 @@ function draw() {
 function updateInputImg(imgName) {
     document.getElementById("input-img").src = "inputImg/"+ imgName;
     update = true;
+    predictImg(currentModel);
     console.log("updateInputImg"+imgName);
 }
 
